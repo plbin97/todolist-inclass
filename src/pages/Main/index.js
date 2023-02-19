@@ -5,16 +5,24 @@ import MainNameInput from './MainNameInput'
 import { MainLoginButton } from './MainLoginButton'
 import { MainAlert } from './MainAlert'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { actionTypes } from '../../actionTypes'
 
 export function Main () {
   const [displayAlert, setDisplayAlert] = useState('')
   const nameInput = useRef(null)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const loginEvent = () => {
     const inputValue = nameInput.current.value
     if (inputValue === '') {
       setDisplayAlert('You need to input your name')
     } else {
+      const action = {
+        type: actionTypes.UPDATE_USERNAME,
+        payload: inputValue
+      }
+      dispatch(action)
       navigate('/todo')
     }
   }
